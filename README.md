@@ -13,39 +13,39 @@ This is one example of map generated in 0,27 ms:
 - Wall = 'X'
 - Path = '_'
 
-Obstacle Map: Seed = -98832348; rows = 30; cols = 82; walls = 702.
-
 ```
-       X     XXXX    X    X   X    X      XX  X  X   X     X    XX   XX          X
-      XX   X       X         X  X   X       X X  X    X      X X   XXX      X     
-      X  X   X      X         XX                X           X   XX    XXX         
-  XXX X    X X    X  X X               XX   XX      X  XX X     X   X        X X  
-     X     X    XX    X  X        X  X   X   X X    XX XXX   X  X            XXX  
-X                X        X XX   XX  X X    XX     X     X   X       X   X  XX XXX
-  X X   X   XX   XX               X  X  X                 X X     X X    XXX X  X 
-XX     XXXX X    X        X X       XX X X  XX  X    X     X  X     X X           
-    XXXX          XX  X XXX  X   X   X     XX X     X    XX  XX        X      X   
-X    X               X X X                  X XX     X XXX   X     X    XX XXX   X
-                XX  X    X  X XX    X       XX     XX       X        X X        X 
-                 X X X   X   XX   XX   X     X       X               XXX         X
-X    X    X        X        X  X             X        X   X     X    X X        X 
- XX      X      X          XX  X     X X       X    XXX XXX  XX  XX X XX       X X
-   X  XX X   X         XX           X X   X    X    X              X  X X         
-         X                    X    X  X  X      X        X        XXX           X 
-        X X X           XXX            XX               XX        X XX        X   
-        XX   X    XX        XX      B   XXXX      X      XX X    XXX              
- X                   X           X   X   X        X     X             X     XX    
-   XXX       XX     X                 XX                              XXX  X X    
-       X   XX  X             X   X   X             X  X         XXXX         XX   
-   X  X  X X X    X  X X X XX    X   X X        XX XX  X XX         X  X  X      X
-       X      XX  X    X       X       XX        X   X X X           X  XX X   XX 
- X    XX   X           XX X    X     X  X X X   X     X X      XX             X  X
-X        XX      X    XX   X    X X     X  X   X       X       X  X   XX        XX
-X     X        X XX XXXX    XX XX    X  X X X X    X X      X  X  X    X          
- X   X         X  X    X XXX X       X       X  X X  XXX   X X   XXX  XXX         
- X         XXXXX X X X X   X         XX  X     XX   XX  X          XX   X    XX   
- X  X X   X    X  XX     X      X      XXE                         X   X     XX   
- XXXX     X X X    X X    X XX X  X XX   X        X  XX   X       X  X  X    XX X
+Obstacle map: Seed = 1801606886; rows = 30; cols = 82; walls = 515.
+
+_____XX_______XX__________X__XXXX____________________XX_XX__________X_____________
+_________X____________X_X__X__________XX_X_____X_____X__X___________X___X______X__
+_______XXX_________X___X__X__X___X___X_____X__X_______X_XX__X___X__X_X__X____XX___
+______X__X__X_________X_X_X_____X_X__X_______X_____________X_____X_X____X__X______
+_XX__X____X__X________X__XXX_______XXX_______________XX_X__XX______X___X__X_______
+___X__X__X__X_X_X___X_X________X____XX_____X_____X__XXX___________________________
+____________XXX__X__X__X________X_X_X_______X_X__X___X_______X______X_____________
+______X____X_X___________X______X____XX____X___X__X_______X________XX__XXXX__XXX__
+____X___XXX__X_XX__XX_XX________X_XXX_____X___XX__X__________X______X_X_____X_X_X_
+_X__X____X_______X__X_X______XXX_X_XX__X_XX_X___XX_____________X__XX___XX__X_____X
+_X________________X__________X___X_X___X__X_____X____________XXX_X_X_X_X_XX_______
+XX________________X__________XX_X_X___X__X___X____XX___X__X_XXXX______________X___
+_XX_______________X______X_______________X__X_X_____________X_____X______XXX_____X
+___X__________XX__X________X___X_____X_______X__X_______X__X______________X_______
+XXX______________XX_______X_XX___X____________X___________XXXXXX_X____X_____X_____
+__________XX____X______XX___X_____________X___X____X_________X___X_____X_________X
+X_________XX______________X__XX__________XX___XX_____X____________XX____X_____X_X_
+XXX__________X_______XXX__X______________X______X___XX__________________X_X_____X_
+______XX___X__X_____X___________________X________X_______________________X__X__X__
+____XX________X_XX_________________X___XX___X__X____B_X__________________XX__X____
+_X_X_X_XXX______XX__X_____X________XX__X__X_X_XXX___X_XX___X_X__X_________X____X_X
+XXX___XXX______X_X_X_____________X_______X_______XX_X___X__________________X__X___
+____X_XX___________X___X___X__X___X___X_X__XX_X__X__X__X__XXX__________XX_______XX
+XX_____X______________X___X____XX____________X___X___X______X__XXX__X_X__X____X___
+_X_X_________XXX__________X_X___X_X___XX______X_______X___X_X_XXXX___X___XXX______
+_XX___X_____________X________XX___X__X_________XX___X_X__________X_X_XX__X________
+X_________________XX__X____X________XX__________X_X__XX_X___XX____X____XX_________
+__E_____X___X______X__X__X__XX____________________X_____X_X___X__________________X
+X_X_____X______________XX___XX____XX___X__X_X____________X_________X____________X_
+XX__X_________________X____X___XXX__X______X____________X___________________X_____
  ```
 
 Can be setted a beggining and an ending.
