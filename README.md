@@ -15,6 +15,7 @@ This is one example of map generated in 0,27 ms:
 
 Obstacle Map: Seed = -98832348; rows = 30; cols = 82; walls = 702.
 
+```
        X     XXXX    X    X   X    X      XX  X  X   X     X    XX   XX          X
       XX   X       X         X  X   X       X X  X    X      X X   XXX      X     
       X  X   X      X         XX                X           X   XX    XXX         
@@ -45,5 +46,6 @@ X     X        X XX XXXX    XX XX    X  X X X X    X X      X  X  X    X
  X         XXXXX X X X X   X         XX  X     XX   XX  X          XX   X    XX   
  X  X X   X    X  XX     X      X      XXE                         X   X     XX   
  XXXX     X X X    X X    X XX X  X XX   X        X  XX   X       X  X  X    XX X
+ ```
 
 Can be setted a beggining and an ending.
