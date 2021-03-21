@@ -14,7 +14,7 @@ This is one example of map generated in 0,27 ms:
 - Path = '_'
 
 ```
-Obstacle map: Seed = 1801606886; rows = 30; cols = 82; walls = 515.
+Obstacle map: Seed = 1801606886; rows = 30; cols = 82; walls = 515; ; walls/cells: 21%.
 
 _____XX_______XX__________X__XXXX____________________XX_XX__________X_____________
 _________X____________X_X__X__________XX_X_____X_____X__X___________X___X______X__
