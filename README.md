@@ -2,15 +2,16 @@
 
 ---DESCRIPTION---
 
-This project creates a random obstacle map (matrix) where an obstacle is generated with a 100% of probability if it has at least another wall around it, but less or equal than MAX_AROUND_WALLS obstacles: (0 < obstacles around <= MAX_AROUND_WALLS). To count the amount of walls-around, it is used the 8-neighbour model. However, if the previous condition is not followed, the probability of generating that wall, which decreases exponentially, changes dynamically with the obstacles already placed. A lot of different types of maps can be generated in a O(rows * cols) time guaranteed.
+This project creates a random obstacle map (matrix) where an obstacle is generated with a 100% of probability if it has at least another wall around it, but less or equal than MAX_AROUND_WALLS obstacles surrounding it: (0 < obstacles around <= MAX_AROUND_WALLS). To count the number of walls around, it is used the 8-neighbour model. However, if the previous condition is not followed, the probability of generating that wall, which decreases exponentially, changes dynamically with the obstacles already placed. A lot of different types of maps can be generated in a O(rows * cols) time guaranteed.
 
 Features:
 - Fast map generation. 
-- Uses seeds to clone your map easily.
-- Map is treated as cyclic to calculate number of obstacles around, so that allow map to be treat as continuous map without lose coherence in borders.
+- Seeds are used to create in every execution always the same maps (under the same parameters).
+- The map is considered cyclic when trying to create a new obstacle in a cell so that it does not lose coherence in borders.
 - A starting and ending point can be set (customized or random).
 - High customized maps can be created with only 3 parameters, which can be saved as templates.
 - There are default templates to create similar maps. For instance, ALIEN_INVASION, BIG_WORLD, HARD_MODE, MAZE or STICK_ROOM.
+
 
 ---EXAMPLES---
 
