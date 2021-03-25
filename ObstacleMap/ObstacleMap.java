@@ -43,14 +43,14 @@ public class ObstacleMap {
 	public static final char ENDING = 'E';
 
 		// Probabilities
-	public static final double P_MAX_AROUND_WALLS = 1; /* If there is at least one wall around current cell but no more than
-													   	* 	MAX_AROUND_WALLS, probability of place a wall there is 100% sure.
-													   	* Is NOT recommended to change this constant, only if you want a
+	public static final double P_MAX_AROUND_WALLS = 1; /* If there is at least one wall around the current cell but no more than
+													   	* 	MAX_AROUND_WALLS, the probability of placing a wall is 100%.
+													   	* It iss NOT recommended to change this constant, only if you want a
 													   	* 	disconnected map. Then can take values between 0 and 1.
 													   	*/
 		// Error control
-	public static final int MAX_CELLS_TESTED = 1000000000; // Over that amount is it thrown an OutOfMemoryError.
-	public static final boolean ERROR_IF_IS_WALL = false; // True = Throw an error when try to set beginning/ending over a wall
+	public static final int MAX_CELLS_TESTED = 1000000000; // Over that amount it is thrown an OutOfMemoryError.
+	public static final boolean ERROR_IF_IS_WALL = false; // True = Throw an error when trying to set beginning/ending over a wall
 														  // False = Place the beginning/ending anyway
 	// Inner map parameters
 
@@ -65,16 +65,16 @@ public class ObstacleMap {
 	private final int ROWS;
 	private final int COLS;
 	private final int WALLS;
-	private final double MAX_AROUND_WALLS; /* Set the max of walls that can have a free cell around
+	private final double MAX_AROUND_WALLS; /* Set the maximum number of walls that can have a free cell around it
 										    * 	to have a P_MAX_AROUND_WALLS of probability to be placed.
 										    * It is an interesting parameter to change. So powerful.
 										    */
 	private final double PO_POINT; /* When number of walls reach (100 * PO_POINT)%
-									* 	of cells, probability of place another wall with no walls
-									* 	around reach 0.
+									* 	of cells, probability of placing another wall with no walls
+									* 	around reaches 0.
 									* It is an interesting parameter to change. So powerful.
 									* 	Can take values from 0.01 to 1.
-									* Whe can increase it for less connected maps (easier) or
+									* We can increase it for less connected maps (easier) or
 									* 	decrease it for more connected maps (more difficult).
 									*/
 
@@ -255,19 +255,19 @@ public class ObstacleMap {
 		pos = nextRandom();
 		counter = 0;
 
-		// Place walls while they are not all already placed
-		// and there are enough space yet in the map
+		// Place walls until they are all placed
+		// and there is enough space in the map
 		while(counter < walls - 1){
 			// Set row & col that was generated randomly
 			r = pos._1();
 			c = pos._2();
 
-			// Try to set a wall
+			// Tries to set a wall
 
 			current =  null;
 			randomProb = rnd.nextDouble(); // Generate the probability randomly: 0 <= p <= 1
 
-			// If there are at least one wall around but no more
+			// If there is at least one wall around but no more
 			// than max assigned at header in MAX_AROUND_WALLS
 			if(maxWallsAround(r, c) && randomProb < pMaxAroundWalls){
 				current = WALL; // Set a wall with pMaxAroundWalls probability
@@ -293,7 +293,7 @@ public class ObstacleMap {
 	private double updateProbability(int walls) {
 		/*
 		 * First wall will be placed any then will decrease exponentially with square function.
-		 * I took update(walls) = 1-square(walls/walls_p0) because begin in 1 (100% probability) for update(0) and and reach 0 (0% probability) for update(walls_p0).
+		 * I took update(walls) = 1-square(walls/walls_p0) because it begins in 1 (100% probability) for update(0) and reach 0 (0% probability) for update(walls_p0).
 		 * walls_p0 = number of walls placed that represent NOT_MAX_AROUND_WALLS_P0 of total cells of the map.
 		 * You can plot the function here:  http://thewessens.net/ClassroomApps/Main/plot.html with 1-sqrt(x/MAX)
 		 * 		substitute MAX for your (NOT_MAX_AROUND_WALLS_P0 * ROWS * COLS).
@@ -302,15 +302,15 @@ public class ObstacleMap {
 		return 1 - Math.sqrt(walls / (PO_POINT * ROWS * COLS));
 	}
 
-	// Determine if there are at least one wall around but no mor than max assigned at header in MAX_AROUND_WALLS
-	// treating map cyclic, that able map to be used like an infinite map with coherence.
+	// Determine if there is least one wall around but no more than max assigned at header in MAX_AROUND_WALLS
+	// treating map cyclic, enabling it to be used like an infinite map with coherence.
 	private boolean maxWallsAround(int row, int col) {
 		int r, c, rMod, cMod, counter;
 
 		r = row-1;
 		counter = 0;
 
-		// Count walls around while haven't count at least 1 over MAX_AROUND_WALLS
+		// Count walls around while it doesn't count at least 1 over MAX_AROUND_WALLS
 		while(r <= row + 1 && counter <= MAX_AROUND_WALLS) {
 			c = col - 1;
 			while (c <= col + 1 && counter <= MAX_AROUND_WALLS) {
