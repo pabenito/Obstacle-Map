@@ -45,7 +45,7 @@ public class ObstacleMap {
 		// Probabilities
 	public static final double P_MAX_AROUND_WALLS = 1; /* If there is at least one wall around the current cell but no more than
 													   	* 	MAX_AROUND_WALLS, the probability of placing a wall is 100%.
-													   	* It iss NOT recommended to change this constant, only if you want a
+													   	* It is NOT recommended to change this constant, only if you want a
 													   	* 	disconnected map. Then can take values between 0 and 1.
 													   	*/
 		// Error control
