@@ -26,7 +26,7 @@ public class ObstacleMapTester {
     // Generate NUM_MAPS with side between MIN_SIDE and MAX_SIDE
     private static int randomTest(){
         final int NUM_TEST = 100;
-        ObstacleMap map;
+        ObstacleMapGenerator map;
         Random rnd = new Random();
         int counter = 0, rows, cols, walls, maxAroundWalls;
         double p0;
@@ -38,13 +38,13 @@ public class ObstacleMapTester {
             cols = (int) (rows * 2.75); // Place this scale for look like a square, because line spacing
             maxAroundWalls = nextIntInRange(rnd, 1, 8);
             p0 = rnd.nextDouble() * 0.99 + 0.01;
-            walls = nextIntInRange(rnd, 0.1, ObstacleMap.getMaxWalls(maxAroundWalls), rows * cols);
+            walls = nextIntInRange(rnd, 0.1, MapConfiguration.getMaxWalls(maxAroundWalls), rows * cols);
 
             System.out.println("Obstacle map " + counter + ": Seed = " + seed + "; rows = " + rows + "; cols = " + cols + "; walls = "
                     + walls + "; walls/cells: " + Math.round((double) 100* walls / (rows * cols)) + "%. Constants: MAX_AROUND_WALLS: "
                     + maxAroundWalls + "; PO_POINT: " + Math.round(100 * p0) + "%.");
 
-            map = new ObstacleMap(seed, rows, cols, walls, maxAroundWalls, p0);
+            map = new ObstacleMapGenerator(rows, cols, walls, maxAroundWalls, p0, seed);
             //map.setBeginningAndEnding();
 
             System.out.println(map.toString());
@@ -58,7 +58,7 @@ public class ObstacleMapTester {
     private static int templateTest(){
         final int NUM_TEST = 1;
         final MapTemplate[] templates = {MapTemplate.ALIEN_INVASION, MapTemplate.BIG_WORLD, MapTemplate.HARD_MODE, MapTemplate.MAZE, MapTemplate.STICK_ROOM};
-        ObstacleMap map;
+        ObstacleMapGenerator map;
         Random rnd = new Random();
         int counter, templateNum, rows, cols, walls, maxAroundWalls;
         double p0;
@@ -80,7 +80,7 @@ public class ObstacleMapTester {
                         + walls + "; walls/cells: " + Math.round((double) 100* walls / (rows * cols)) + "%. Constants: MAX_AROUND_WALLS: "
                         + maxAroundWalls + "; PO_POINT: " + Math.round(100 * p0) + "%.");
 
-                map = new ObstacleMap(seed, rows, cols, walls, maxAroundWalls, p0);
+                map = new ObstacleMapGenerator(rows, cols, walls, maxAroundWalls, p0, seed);
                 //map.setBeginningAndEnding();
 
                 System.out.println(map.toString());

@@ -22,9 +22,9 @@ public class MapPrinter {
 
         for(int r = 0; r < getRows(); r++) {
             for(int c = 0; c < getCols(); c++) {
-                if(map[r][c] == ObstacleMap.PATH){
+                if(map[r][c] == ObstacleMapGenerator.PATH){
                     sb.append(PATH);
-                }else if(map[r][c] == ObstacleMap.WALL){
+                }else if(map[r][c] == ObstacleMapGenerator.WALL){
                     sb.append(WALL);
                 }
             }
