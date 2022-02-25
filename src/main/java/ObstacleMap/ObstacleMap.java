@@ -114,28 +114,12 @@ public class ObstacleMap {
 		return printer.print();
 	}
 
-	// True indicate wall, false path
-	public boolean[][] getBoolMap(){
-		boolean[][] boolMap = new boolean[ROWS][COLS];
-
-		for(int r = 0; r < ROWS; r++) {
-			for(int c = 0; c < COLS; c++) {
-				if(map[r][c] != null){
-					boolMap[r][c] = true;
-				}
-			}
-		}
-
-		return boolMap;
-	}
-
 	// Private
-
 		// Map generation
 
 	private int generateMap(int walls){
 		Cell pos; // position
-		Character current;
+		boolean current;
 		Integer r, c; // row & col
 
 		double randomProb; // Random probability
@@ -150,7 +134,7 @@ public class ObstacleMap {
 			pos = nextRandom(); // Generate next position randomly ensuring to be free
 
 			// Tries to set a wall
-			current =  null;
+			current =  PATH;
 			randomProb = rnd.nextDouble(); // Generate the probability randomly: 0 <= p <= 1
 
 			// If there is at least one wall around but no more
@@ -164,7 +148,7 @@ public class ObstacleMap {
 			}
 
 			// If a wall was placed
-			if(current != null){
+			if(current == WALL){
 				map[pos.row][pos.column] = current; // Place a wall
 				counter++; // Increase counter of walls already placed
 					pNotMaxAroundWalls = updateProbability(counter); // SO IMPORTANT! UPDATE DYNAMIC PROBABILITY!
@@ -203,7 +187,7 @@ public class ObstacleMap {
 				cMod = Math.floorMod(c, COLS);
 
 				// Ensure not null and then check if it is a wall. Could be beginning or ending
-				if (map[rMod][cMod] != null && map[rMod][cMod] == WALL) {
+				if (map[rMod][cMod] == WALL) {
 					counter++; // Increase counter
 				}
 				c++;
@@ -222,7 +206,7 @@ public class ObstacleMap {
 		do{
 			row = rnd.nextInt(ROWS);
 			column = rnd.nextInt(COLS);
-		}while (map[row][column] != null);
+		}while (map[row][column] == WALL);
 
 		return new Cell(row, column);
 	}
@@ -274,7 +258,7 @@ public class ObstacleMap {
 	}
 
 	private void checkIsPath(int row, int col){
-		if(map[row][col] != null && map[row][col] == WALL){
+		if(map[row][col] == WALL){
 			throw new IllegalArgumentException("The cell (" + row + "," + col + ") is a wall, so can't be places here the beginning / ending.");
 		}
 	}

@@ -18,20 +18,28 @@ public class MapPrinter {
 
     public String print(){
         StringJoiner sj = new StringJoiner("\n", "\n", "\n");
-        StringBuilder sb = new StringBuilder(COLS);
+        StringBuilder sb = new StringBuilder(getCols());
 
-        for(int r = 0; r < ROWS; r++) {
-            for(int c = 0; c < COLS; c++) {
-                if(map[r][c] == null){
+        for(int r = 0; r < getRows(); r++) {
+            for(int c = 0; c < getCols(); c++) {
+                if(map[r][c] == ObstacleMap.PATH){
                     sb.append(PATH);
-                }else {
-                    sb.append(map[r][c]);
+                }else if(map[r][c] == ObstacleMap.WALL){
+                    sb.append(WALL);
                 }
             }
             sj.add(sb);
-            sb = new StringBuilder(COLS);
+            sb = new StringBuilder(getCols());
         }
 
         return sj.toString();
+    }
+
+    private int getRows(){
+        return map.length;
+    }
+
+    private int getCols(){
+        return map[0].length;
     }
 }
