@@ -12,10 +12,8 @@ public class ObstacleMap {
 	//Static parameters
 
 		// Chars to print when toString over map
-	public static final char PATH = '░';
-	public static final char WALL = '█';
-	public static final char BEGINNING = 'B';
-	public static final char ENDING = 'E';
+	public static final boolean PATH = false;
+	public static final boolean WALL = true;
 
 		// Probabilities
 	public static final double P_MAX_AROUND_WALLS = 1; /* If there is at least one wall around the current cell but no more than
@@ -32,7 +30,7 @@ public class ObstacleMap {
 		// Inner variables
     private Cell beginning; // Initial cell
 	private Cell ending; // Final cell
-	private Character [][] map;
+	private boolean [][] map;
 	private Random rnd;
 
 		// Inner constants
@@ -78,7 +76,7 @@ public class ObstacleMap {
 		WALLS = walls;
 		MAX_AROUND_WALLS = maxAroundWalls;
 		PO_POINT = pOPoint;
-		map = new Character[ROWS][COLS];
+		map = new boolean[ROWS][COLS];
 		rnd = new Random();
 		rnd.setSeed(SEED);
 
@@ -103,76 +101,8 @@ public class ObstacleMap {
 		return WALLS;
 	}
 
-	public Cell getBeginning() {
-		return beginning;
-	}
-
-	public Cell getEnding() {
-		return ending;
-	}
-
-	public Character[][] getMap() {
+	public boolean[][] getMap() {
 		return map;
-	}
-
-		// Setters
-
-	// Set beginning replacing for last position if was if isn't a wall
-	public void setBeginning(int row, int col) {
-		checkRowsAndCols(row, col);
-		if(ERROR_IF_IS_WALL){
-			checkIsPath(row, col);
-		}
-
-		if(beginning != null){
-			map[beginning.row][beginning.column] = null;
-		}
-		map[row][col] = BEGINNING;
-		beginning = new Cell(row, col);
-	}
-
-	// Set ending replacing for last position if was
-	public void setEnding(int row, int col) {
-		checkRowsAndCols(row, col);
-		if(ERROR_IF_IS_WALL){
-			checkIsPath(row, col);
-		}
-
-		if(ending != null){
-			map[ending.row][ending.column] = null;
-		}
-		map[row][col] = ENDING;
-		ending = new Cell(row, col);
-	}
-
-	public void setBeginningAndEnding() {
-		int row, col, replaced = 0;
-		boolean placed = false;
-
-		if(WALLS > ROWS * COLS - 2){
-			throw new RuntimeException("Map is full of walls, can't be placed beginning and ending.");
-		}
-
-		// Place beginning randomly assuring that the cell is free
-		while(!placed){
-			try {
-				row = rnd.nextInt(ROWS);
-				col = rnd.nextInt(COLS);
-				setBeginning(row, col); // Can fail if isn't free
-				placed = true;
-			}catch (IllegalArgumentException e){}
-		}
-
-		placed = false;
-		// Place ending randomly assuring that the cell is free
-		while (!placed){
-			try {
-				row = rnd.nextInt(ROWS);
-				col = rnd.nextInt(COLS);
-				setEnding(row, col); // Can fail if isn't free
-				placed = true;
-			}catch (IllegalArgumentException e){}
-		}
 	}
 
 		// To represent map
@@ -180,22 +110,8 @@ public class ObstacleMap {
 	@Override
 	// Show the obstacle map with the indicated char constant on the header
 	public String toString() {
-		StringJoiner sj = new StringJoiner("\n", "\n", "\n");
-		StringBuilder sb = new StringBuilder(COLS);
-
-		for(int r = 0; r < ROWS; r++) {
-			for(int c = 0; c < COLS; c++) {
-				if(map[r][c] == null){
-					sb.append(PATH);
-				}else {
-					sb.append(map[r][c]);
-				}
-			}
-			sj.add(sb);
-			sb = new StringBuilder(COLS);
-		}
-
-		return sj.toString();
+		MapPrinter printer = new MapPrinter(map);
+		return printer.print();
 	}
 
 	// True indicate wall, false path
@@ -226,25 +142,20 @@ public class ObstacleMap {
 		double pMaxAroundWalls =  P_MAX_AROUND_WALLS;
 		double pNotMaxAroundWalls = updateProbability(0); // First wall will be placed for sure
 		int counter;
-
-		pos = nextRandom();
 		counter = 0;
 
 		// Place walls until they are all placed
 		// and there is enough space in the map
-		while(counter < walls - 1){
-			// Set row & col that was generated randomly
-			r = pos.row;
-			c = pos.column;
+		while(counter <= walls){
+			pos = nextRandom(); // Generate next position randomly ensuring to be free
 
 			// Tries to set a wall
-
 			current =  null;
 			randomProb = rnd.nextDouble(); // Generate the probability randomly: 0 <= p <= 1
 
 			// If there is at least one wall around but no more
 			// than max assigned at header in MAX_AROUND_WALLS
-			if(maxWallsAround(r, c) && randomProb < pMaxAroundWalls){
+			if(maxWallsAround(pos.row, pos.column) && randomProb < pMaxAroundWalls){
 				current = WALL; // Set a wall with pMaxAroundWalls probability
 
 				// If there are no walls around or more than allowed
@@ -254,12 +165,10 @@ public class ObstacleMap {
 
 			// If a wall was placed
 			if(current != null){
-				map[r][c] = current; // Place a wall
+				map[pos.row][pos.column] = current; // Place a wall
 				counter++; // Increase counter of walls already placed
 					pNotMaxAroundWalls = updateProbability(counter); // SO IMPORTANT! UPDATE DYNAMIC PROBABILITY!
 			}
-
-			pos = nextRandom(); // Generate next position randomly ensuring to be free
 		}
 
 		return counter;
