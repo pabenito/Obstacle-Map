@@ -2,7 +2,6 @@ package ObstacleMap;
 
 public class MapTemplate{
     // Default maps
-
     public static final MapTemplate MAZE = new MapTemplate("Maze", 2, 0.4, 0.26);
     public static final MapTemplate STICK_ROOM = new MapTemplate("Stick Room", 1, 0.2, 0.06);
     public static final MapTemplate BIG_WORLD = new MapTemplate("Big World", 7, 0.37, 0.012);

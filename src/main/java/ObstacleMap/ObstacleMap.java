@@ -5,7 +5,6 @@
 
 package ObstacleMap;
 
-import DataStructures.Tuple2;
 import java.util.Random;
 import java.util.StringJoiner;
 
@@ -31,8 +30,8 @@ public class ObstacleMap {
 	// Inner map parameters
 
 		// Inner variables
-    private Tuple2<Integer, Integer> beginning; // Initial cell
-	private Tuple2<Integer, Integer> ending; // Final cell
+    private Cell beginning; // Initial cell
+	private Cell ending; // Final cell
 	private Character [][] map;
 	private Random rnd;
 
@@ -104,11 +103,11 @@ public class ObstacleMap {
 		return WALLS;
 	}
 
-	public Tuple2<Integer, Integer> getBeginning() {
+	public Cell getBeginning() {
 		return beginning;
 	}
 
-	public Tuple2<Integer, Integer> getEnding() {
+	public Cell getEnding() {
 		return ending;
 	}
 
@@ -126,10 +125,10 @@ public class ObstacleMap {
 		}
 
 		if(beginning != null){
-			map[beginning._1()][beginning._2()] = null;
+			map[beginning.row][beginning.column] = null;
 		}
 		map[row][col] = BEGINNING;
-		beginning = new Tuple2<>(row, col);
+		beginning = new Cell(row, col);
 	}
 
 	// Set ending replacing for last position if was
@@ -140,10 +139,10 @@ public class ObstacleMap {
 		}
 
 		if(ending != null){
-			map[ending._1()][ending._2()] = null;
+			map[ending.row][ending.column] = null;
 		}
 		map[row][col] = ENDING;
-		ending = new Tuple2<>(row, col);
+		ending = new Cell(row, col);
 	}
 
 	public void setBeginningAndEnding() {
@@ -219,7 +218,7 @@ public class ObstacleMap {
 		// Map generation
 
 	private int generateMap(int walls){
-		Tuple2<Integer, Integer> pos; // position
+		Cell pos; // position
 		Character current;
 		Integer r, c; // row & col
 
@@ -235,8 +234,8 @@ public class ObstacleMap {
 		// and there is enough space in the map
 		while(counter < walls - 1){
 			// Set row & col that was generated randomly
-			r = pos._1();
-			c = pos._2();
+			r = pos.row;
+			c = pos.column;
 
 			// Tries to set a wall
 
@@ -307,16 +306,16 @@ public class ObstacleMap {
 	}
 
 	// Return a random position inside map.
-	private Tuple2<Integer, Integer> nextRandom(){
-		int r, c;
+	private Cell nextRandom(){
+		int row, column;
 
 		// Generate positions while isn't free
 		do{
-			r = rnd.nextInt(ROWS);
-			c = rnd.nextInt(COLS);
-		}while (map[r][c] != null);
+			row = rnd.nextInt(ROWS);
+			column = rnd.nextInt(COLS);
+		}while (map[row][column] != null);
 
-		return new Tuple2<>(r, c);
+		return new Cell(row, column);
 	}
 
 		// Control
