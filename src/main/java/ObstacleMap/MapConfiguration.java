@@ -51,20 +51,16 @@ public class MapConfiguration {
     // Return maximum walls% that can be placed in a map in terms of getMaxWallsAround().
     // That values were obtained in tests.
     public static double getMaxWalls(int maxWallsAround){
-        double maxWalls;
-
-        switch (maxWallsAround){
-            case 1: maxWalls = 0.33; break;
-            case 2: maxWalls = 0.45; break;
-            case 3: maxWalls = 0.54; break;
-            case 4: maxWalls = 0.63; break;
-            case 5: maxWalls = 0.72; break;
-            case 6: maxWalls = 0.81; break;
-            case 7: maxWalls = 0.88; break;
-            case 8: maxWalls = 1; break;
-            default: throw new IllegalArgumentException("STATIC CONSTANT ERROR: getMaxWallsAround() must be between 1 and 8, please replace it.");
-        }
-
-        return maxWalls;
+        return switch (maxWallsAround) {
+            case 1 -> 0.33;
+            case 2 -> 0.45;
+            case 3 -> 0.54;
+            case 4 -> 0.63;
+            case 5 -> 0.72;
+            case 6 -> 0.81;
+            case 7 -> 0.88;
+            case 8 -> 1;
+            default -> throw new IllegalArgumentException("STATIC CONSTANT ERROR: getMaxWallsAround() must be between 1 and 8, please replace it.");
+        };
     }
 }

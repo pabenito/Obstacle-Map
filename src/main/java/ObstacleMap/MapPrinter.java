@@ -12,12 +12,8 @@ public class MapPrinter {
         this.map = map;
     }
 
-    public void setMap(boolean[][] map) {
-        this.map = map;
-    }
-
     public String print(){
-        StringJoiner sj = new StringJoiner("\n", "\n", "\n");
+        StringJoiner sj = new StringJoiner("\n");
         StringBuilder sb = new StringBuilder(getCols());
 
         for(int r = 0; r < getRows(); r++) {

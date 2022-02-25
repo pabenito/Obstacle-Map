@@ -17,9 +17,9 @@ public class ObstacleMapGenerator {
 	// Inner map parameters
 
 		// Inner variables
-	private MapConfiguration configuration;
-	private boolean [][] map;
-	private Random rnd;
+	private final MapConfiguration configuration;
+	private final boolean [][] map;
+	private final Random rnd;
 	
 
 	// Public
@@ -36,7 +36,7 @@ public class ObstacleMapGenerator {
 		rnd = new Random();
 		rnd.setSeed(getSeed());
 
-		generateMap(walls);
+		generateMap();
 	}
 
 		// Getters
@@ -83,49 +83,44 @@ public class ObstacleMapGenerator {
 	// Private
 		// Map generation
 
-	private int generateMap(int walls){
-		Cell pos; // position
+	private int generateMap(){
+		Cell cell;
 		boolean current;
-		Integer r, c; // row & col
-
-		double randomProb; // Random probability
-		double pNotMaxAroundWalls = updateProbability(0); // First wall will be placed for sure
-		int counter;
-		counter = 0;
+		int wallsPlaced = 0;
+		double pNotMaxAroundWalls = updateProbability(wallsPlaced); // First wall will be placed for sure
 
 		// Place walls until they are all placed
 		// and there is enough space in the map
-		while(counter <= walls){
-			pos = nextRandom(); // Generate next position randomly ensuring to be free
+		while(wallsPlaced <= getWalls()){
+			cell = nextRandom(); // Generate next position randomly ensuring to be free
 
 			// Tries to set a wall
 			current =  PATH;
-			randomProb = rnd.nextDouble(); // Generate the probability randomly: 0 <= p <= 1
 
 			// If there is at least one wall around but no more
 			// than max assigned at header in getMaxWallsAround()
-			if(maxWallsAround(pos.row, pos.column)){
+			if(maxWallsAround(cell)){
 				current = WALL; // Set a wall with pMaxAroundWalls probability
 
 				// If there are no walls around or more than allowed
-			}else if(randomProb < pNotMaxAroundWalls){
+			}else if(rnd.nextDouble() < pNotMaxAroundWalls){
 				current = WALL; // Set a wall with pNotMaxAroundWalls probability
 			}
 
 			// If a wall was placed
 			if(current == WALL){
-				map[pos.row][pos.column] = current; // Place a wall
-				counter++; // Increase counter of walls already placed
-					pNotMaxAroundWalls = updateProbability(counter); // SO IMPORTANT! UPDATE DYNAMIC PROBABILITY!
+				map[cell.row][cell.column] = current; // Place a wall
+				wallsPlaced++; // Increase wallsPlaced of walls already placed
+					pNotMaxAroundWalls = updateProbability(wallsPlaced); // SO IMPORTANT! UPDATE DYNAMIC PROBABILITY!
 			}
 		}
 
-		return counter;
+		return wallsPlaced;
 	}
 
 	private double updateProbability(int walls) {
 		/*
-		 * First wall will be placed any then will decrease exponentially with square function.
+		 * First wall will be placed with 100% probability, then will decrease exponentially with square function.
 		 * I took update(walls) = 1-square(walls/walls_p0) because it begins in 1 (100% probability) for update(0) and reach 0 (0% probability) for update(walls_p0).
 		 * walls_p0 = number of walls placed that represent NOT_getMaxWallsAround()_P0 of total cells of the map.
 		 * You can plot the function here:  http://thewessens.net/ClassroomApps/Main/plot.html with 1-sqrt(x/MAX)
@@ -135,32 +130,27 @@ public class ObstacleMapGenerator {
 		return 1 - Math.sqrt(walls / (getP0Point() * getRows() * getCols()));
 	}
 
-	// Determine if there is least one wall around but no more than max assigned at header in getMaxWallsAround()
+	// Determine if there is least one wall around but no more than max assigned at MaxWallsAround
 	// treating map cyclic, enabling it to be used like an infinite map with coherence.
-	private boolean maxWallsAround(int row, int col) {
-		int r, c, rMod, cMod, counter;
+	private boolean maxWallsAround(Cell cell) {
+		return getWallsAround(cell) > 0 && getWallsAround(cell) <= getMaxWallsAround();
+	}
 
-		r = row-1;
-		counter = 0;
-
-		// Count walls around while it doesn't count at least 1 over getMaxWallsAround()
-		while(r <= row + 1 && counter <= getMaxWallsAround()) {
-			c = col - 1;
-			while (c <= col + 1 && counter <= getMaxWallsAround()) {
-				// treat map cyclic by applying modulus
-				rMod = Math.floorMod(r, getRows());
-				cMod = Math.floorMod(c, getCols());
-
-				// Ensure not null and then check if it is a wall. Could be beginning or ending
-				if (map[rMod][cMod] == WALL) {
-					counter++; // Increase counter
+	// Count how many walls are around the cell, without including it
+	private int getWallsAround(Cell cell) {
+		int result = 0;
+		int row = cell.row - 1;
+		while(row <= cell.row + 1 && result <= getMaxWallsAround()) {
+			int column = cell.column - 1;
+			while (column <= cell.column + 1 && result <= getMaxWallsAround()) {
+				if (map[Math.floorMod(row, getRows())][Math.floorMod(column, getRows())] == WALL) { // treat map cyclic by applying modulus
+					result++;
 				}
-				c++;
+				column++;
 			}
-			r++;
+			row++;
 		}
-
-		return counter > 0 && counter <= getMaxWallsAround();
+		return result;
 	}
 
 	// Return a random position inside map.
