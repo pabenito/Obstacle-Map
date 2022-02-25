@@ -1,4 +1,4 @@
-package ObstacleMap;
+import ObstacleMap.*;
 
 import java.util.Random;
 
@@ -57,7 +57,7 @@ public class ObstacleMapTester {
 
     private static int templateTest(){
         final int NUM_TEST = 1;
-        final ObstacleMap.MapTemplate[] templates = {ObstacleMap.ALIEN_INVASION, ObstacleMap.BIG_WORLD, ObstacleMap.HARD_MODE, ObstacleMap.MAZE, ObstacleMap.STICK_ROOM};
+        final MapTemplate[] templates = {MapTemplate.ALIEN_INVASION, MapTemplate.BIG_WORLD, MapTemplate.HARD_MODE, MapTemplate.MAZE, MapTemplate.STICK_ROOM};
         ObstacleMap map;
         Random rnd = new Random();
         int counter, templateNum, rows, cols, walls, maxAroundWalls;
